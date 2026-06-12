@@ -4,7 +4,7 @@ namespace ProblemOfTheDay_C
     {
         public static void Main(string[] args)
         {
-            FirstWeek.launchDay();
+            SecondWeek.launchDay();
         }
     }
 }
