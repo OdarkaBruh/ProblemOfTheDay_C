@@ -10,7 +10,6 @@ public class SecondWeek
     {
         switch (day)
         {
-            // Add 9
             case 8:
                 SecondWeek_Day8.launchDay();
                 break;
@@ -28,10 +27,42 @@ public class SecondWeek
             case 12:
                 Console.WriteLine(kSubstr("abab", 2));
                 break;
+            case 13:
+                
+                break;
+            case 14:
+                
+                break;
         }
     }
 
-    
+    /// <summary>
+    /// 08.06.2026 (13.06.2026) - Seating Arrangement
+    ///
+    /// Given an integer k representing the number of people to be seated and an array seats[], where 0 denotes
+    /// an empty seat and 1 denotes an occupied seat.
+    ///
+    /// Determine whether it is possible to seat all k people such that no two occupied seats are adjacent
+    /// (including newly seated people).
+    /// </summary>
+    /// <param name="k">the number of people to be seated</param>
+    /// <param name="seats">a representation of people sitting</param>
+    /// <returns>whether it is possible to seat all k people such that no two occupied seats are adjacent</returns>
+    public static bool canSeatAllPeople(int k, int[] seats)
+    {
+        for (var i = 0; i < seats.Length; i++)
+        {
+            if (i != 0 && seats[i] == 1 && seats[i - 1] == 1) return false;
+            else if ( k != 0 && seats[i] == 0 && 
+                      (i == 0 || seats[i - 1] == 0) &&
+                      (i + 1 == seats.Length || seats[i + 1] == 0))
+            {
+                k--;
+                i++;
+            }
+        }
+        return k == 0;
+    }
 
     /// <summary>
     /// 10.06.2026 - Binary Searchable Count
