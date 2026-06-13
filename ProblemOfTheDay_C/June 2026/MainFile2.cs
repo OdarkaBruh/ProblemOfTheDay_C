@@ -4,13 +4,20 @@ using System.Linq;
 
 public class SecondWeek
 {
-    private static byte day = 12;
+    private static byte day = 9;
 
     public static void launchDay()
     {
         switch (day)
         {
-            // Add 8-9
+            // Add 9
+            case 8:
+                SecondWeek_Day8.launchDay();
+                break;
+            case 9:
+                int[] seats = new[] { 0,1,0 };
+                Console.WriteLine(canSeatAllPeople(1, seats));
+                break;
             case 10:
                 int[] a = new[] { 2, 1, 3, 5, 4, 6 };
                 Console.WriteLine(binarySearchable(a));
@@ -24,6 +31,7 @@ public class SecondWeek
         }
     }
 
+    
 
     /// <summary>
     /// 10.06.2026 - Binary Searchable Count
