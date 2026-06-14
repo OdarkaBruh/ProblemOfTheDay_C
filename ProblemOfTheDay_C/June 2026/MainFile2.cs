@@ -4,7 +4,7 @@ using System.Linq;
 
 public class SecondWeek
 {
-    private static byte day = 9;
+    private static byte day = 14;
 
     public static void launchDay()
     {
@@ -28,10 +28,12 @@ public class SecondWeek
                 Console.WriteLine(kSubstr("abab", 2));
                 break;
             case 13:
-                
+                // I tried to solve this problem, but despite my love of math, I'm so not a fan of combinatorics :'
                 break;
             case 14:
-                
+                int[][] numbers = { new[] { 0, 1, 0 }, new []{0, 1, 1}, new []{0, 0, 0} };
+                List<int> coordinates = exitPoint(numbers);
+                Console.WriteLine(coordinates[0] + " " + coordinates[1]);
                 break;
         }
     }
@@ -48,7 +50,7 @@ public class SecondWeek
     /// <param name="k">the number of people to be seated</param>
     /// <param name="seats">a representation of people sitting</param>
     /// <returns>whether it is possible to seat all k people such that no two occupied seats are adjacent</returns>
-    public static bool canSeatAllPeople(int k, int[] seats)
+    private static bool canSeatAllPeople(int k, int[] seats)
     {
         for (var i = 0; i < seats.Length; i++)
         {
@@ -173,5 +175,83 @@ public class SecondWeek
             if (var.Value == 1) return true;
         }
         return false;
+    }
+
+    /// <summary>
+    /// 14.06.2026 - Exit Point in a Matrix
+    /// Given a matrix mat[][] of size n × m consisting of 0s and 1s. You start at the top-left cell (0, 0)
+    /// and initially move in the left-to-right direction (i.e., towards the right).
+    ///
+    /// While traversing the matrix, follow these rules:
+    ///     If the current cell contains 0, continue moving in the same direction.
+    ///     If the current cell contains 1, change your direction to the right (clockwise turn), and
+    ///     update the cell value to 0.
+    ///
+    /// You continue this process until you move outside the boundaries of the matrix. Your task is to determine the
+    /// coordinates (row and column index) of the cell from which you exit the matrix.
+    ///
+    /// Time: 0,1
+    /// <remarks>Maybe not the shortest solution, but I like how easy to understand it is.</remarks>
+    /// </summary>
+    /// <param name="mat"> a matrix to travel through</param>
+    /// <returns>The coordinates (row and column) of the cell from which the matrix was exited</returns>
+    /// <exception cref="NotImplementedException"></exception>
+    private static List<int> exitPoint(int[][] mat)
+    {
+        List<int> coordinates = new List<int>();
+        var pointX = 0;
+        var pointY = 0;
+        var currentDirection = Directions.East;
+
+        while (pointX >= 0 && pointX < mat[0].Length && pointY >= 0 && pointY < mat.Length) {
+            if (mat[pointY][pointX] == 1) {
+                currentDirection = getNextDirection(currentDirection);
+                mat[pointY][pointX] = 0;
+            }
+            pointX += getX(currentDirection);
+            pointY += getY(currentDirection);
+        }
+        coordinates.Add(pointY - getY(currentDirection));
+        coordinates.Add(pointX - getX(currentDirection));
+        
+        return coordinates;
+        int getX(Directions dir)
+        {
+            if (dir == Directions.West) return -1;
+            else if (dir == Directions.East) return + 1;
+            else return 0;
+        }
+        
+        int getY(Directions dir)
+        {
+            if (dir == Directions.North) return -1;
+            else if (dir == Directions.South) return 1;
+            else return 0;
+        }
+        
+        Directions getNextDirection(Directions direction)
+        {
+            switch (direction)
+            {
+                case Directions.East:
+                    return Directions.South;
+                case Directions.West:
+                    return Directions.North;
+                case Directions.North:
+                    return Directions.East;
+                case Directions.South:
+                    return Directions.West;
+                default:
+                    throw new NotImplementedException();
+            }
+        }  
+    }
+    
+    enum Directions
+    {
+        East,
+        West,
+        North,
+        South,        
     }
 }

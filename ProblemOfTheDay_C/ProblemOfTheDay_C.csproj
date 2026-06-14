@@ -41,6 +41,8 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="June 2026\MainFile.cs" />
+        <Compile Include="June 2026\MainFile2.cs" />
+        <Compile Include="June 2026\SecondWeek_Day8.cs" />
         <Compile Include="Program.cs"/>
         <Compile Include="Properties\AssemblyInfo.cs"/>
     </ItemGroup>
