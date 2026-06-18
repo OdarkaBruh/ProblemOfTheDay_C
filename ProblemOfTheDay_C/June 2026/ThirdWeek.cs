@@ -108,29 +108,37 @@ public class ThirdWeek
     }
 
     /// <summary>
+    /// 16.06.2026 - Construct List using XOR Queries
     /// 
+    ///There is an array that initially contains only a single value, 0.
+    /// Given a list of queries queries[][] of size q, where each query is of one of the following types:
+    /// 0 x: Insert x into the array.
+    /// 1 x: Replace every element a in the array with a ^ x, where ^ denotes the bitwise XOR operator.
+    /// Return the array in sorted order after performing all the queries.
+    /// <remarks>Didn't get how I should do this and couldn't figure this out, but after a day I got it.</remarks>
     /// </summary>
-    /// <param name="queries"></param>
-    /// <returns></returns>
-    public static List<int> constructList(int[,] queries) {
-        List<int> result = new List<int>(){0};
-        for (var i = 0; i < queries.GetLength(0); i++)
+    /// <param name="queries"> </param>
+    /// <returns>the array in sorted order</returns>
+    private static List<int> constructList(int[,] queries) {
+        List<int> result = new List<int>(){};
+        int XOR = 0;
+        for (var i = queries.GetLength(0)-1; i >= 0; i--)
         {
-            if (queries[i,0] == 0) result.Add(queries[i,1]);
+            if (queries[i,0] == 0)
+            {
+                result.Add(queries[i, 1] ^ XOR);
+            }
             else
             {
-                for (var j = 0; j < result.Count; j++)
-                {
-                    result[j] ^= queries[i,1];
-                }
+                XOR ^= queries[i, 1];
             }
         }
-
+        result.Add(0 ^ XOR);
         result.Sort();
         return result;
     }
     
-    public static int maxProduct(int n)
+    private static int maxProduct(int n)
     {
         if (n < 4) return (n-1);
         var divided = 1;
